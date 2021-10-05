@@ -65,6 +65,23 @@ describe('banana routes', () => {
       });
   });
 
+  it('should return a studio, film and title', async () =>
+  {
+    await saveStudios();
+    return request(app)
+      .get('/api/studios/1')
+      .then((res) =>
+      {
+        console.log('AT GET STUDIO TEST', res.body);
+        expect(res.body).toEqual(
+          [{
+            id: '1',
+            name: 'Blum House',
+          }]
+        );
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
