@@ -20,6 +20,22 @@ async function saveStudios() {
   );
 }
 
+async function saveFilms() {
+  const testFilm = [
+    {
+      film_id: '1',
+      title: 'Lion King',
+      studio_id: 1,
+      released: 1994
+    },
+  ];
+  await Promise.all(
+    testFilm.map(async (arr) => {
+      await request(app).post('/api/films').send(arr);
+    })
+  );
+}
+
 describe('banana routes', () => {
   beforeEach(() => {
     return setup(pool);
@@ -55,7 +71,7 @@ describe('banana routes', () => {
       .get('/api/studios')
       .then((res) =>
       {
-        console.log('AT GET STUDIO TEST', res.body);
+        // console.log('AT GET STUDIO NAME AND ID TEST', res.body);
         expect(res.body).toEqual(
           [{
             id: '1',
@@ -65,18 +81,25 @@ describe('banana routes', () => {
       });
   });
 
-  it('should return a studio, film and title', async () =>
+  it('should return a studio with all films and titles', async () =>
   {
     await saveStudios();
+    await saveFilms();
     return request(app)
       .get('/api/studios/1')
       .then((res) =>
       {
-        console.log('AT GET STUDIO TEST', res.body);
+        // console.log('AT GET STUDIO FILM AND TITLE TEST', res.body);
         expect(res.body).toEqual(
           [{
             id: '1',
             name: 'Blum House',
+            city: 'Hollywood',
+            state: 'California',
+            country: 'United States of America',
+            film_id: 1,
+            title: 'Lion King' 
+          
           }]
         );
       });
