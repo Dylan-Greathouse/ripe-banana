@@ -19,26 +19,43 @@ async function saveFilms() {
   );
 }
 
+async function saveStudios() {
+  const testStudio = [
+    {
+      id: '1',
+      name: 'Blum House',
+      city: 'Hollywood',
+      state: 'California',
+      country: 'United States of America',
+    },
+  ];
+  await Promise.all(
+    testStudio.map(async (arr) => {
+      await request(app).post('/api/studios').send(arr);
+    })
+  );
+}
+
 describe('banana routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
 
-  it('should save a new studio', () => {
+  it('should save a new film', async () => {
+    await saveStudios();
     return request(app)
       .post('/api/films')
       .send({
-        id: '1',
         title: 'Lion King',
-        studio_id: 1,
+        studioId: 1,
         released: 1994
       })
       .then((res) => {
         expect(res.body).toEqual({
           id: '1',
           title: 'Lion King',
-          studio_id: 1,
-          released: 1994
+          studioId: '1',
+          released: '1994'
         });
       });
   });
