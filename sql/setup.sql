@@ -19,7 +19,7 @@ CREATE TABLE studios (
 --   released: <4-digit year RN>
 
 CREATE TABLE films (
-    film_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     title TEXT NOT NULL,
     studio_id BIGINT, 
     FOREIGN KEY(studio_id) REFERENCES studios(id),

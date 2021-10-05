@@ -6,7 +6,6 @@ const app = require('../lib/app.js');
 async function saveStudios() {
   const testStudio = [
     {
-      id: '1',
       name: 'Blum House',
       city: 'Hollywood',
       state: 'California',
@@ -23,9 +22,8 @@ async function saveStudios() {
 async function saveFilms() {
   const testFilm = [
     {
-      film_id: '1',
       title: 'Lion King',
-      studio_id: 1,
+      studioId: 1,
       released: 1994
     },
   ];
@@ -81,7 +79,7 @@ describe('banana routes', () => {
       });
   });
 
-  it('should return a studio with all films and titles', async () =>
+  it.only('should return a studio with all films and titles', async () =>
   {
     await saveStudios();
     await saveFilms();
@@ -91,7 +89,7 @@ describe('banana routes', () => {
       {
         // console.log('AT GET STUDIO FILM AND TITLE TEST', res.body);
         expect(res.body).toEqual(
-          [{
+          {
             id: '1',
             name: 'Blum House',
             city: 'Hollywood',
@@ -100,7 +98,7 @@ describe('banana routes', () => {
             film_id: 1,
             title: 'Lion King' 
           
-          }]
+          }
         );
       });
   });

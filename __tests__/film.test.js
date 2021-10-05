@@ -41,7 +41,7 @@ describe('banana routes', () => {
     return setup(pool);
   });
 
-  it('should save a new film', async () => {
+  it.skip('should save a new film', async () => {
     await saveStudios();
     return request(app)
       .post('/api/films')
