@@ -1,4 +1,5 @@
-DROP TABLE IF EXISTS studios;
+DROP TABLE IF EXISTS studios CASCADE;
+DROP TABLE IF EXISTS films;
     -- id;
     -- name;
     -- city;
@@ -23,5 +24,5 @@ CREATE TABLE films (
     studio_id INTEGER REFERENCES studios(id) ,
     released BIGINT VARCHAR(4) NOT NULL
 
-)
+);
 -- (released between 0 and 9999) limits integer method
