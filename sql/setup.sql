@@ -21,8 +21,9 @@ CREATE TABLE studios (
 CREATE TABLE films (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     title TEXT NOT NULL,
-    studio_id INTEGER REFERENCES studios(id) ,
-    released BIGINT VARCHAR(4) NOT NULL
+    studio_id BIGINT, 
+    FOREIGN KEY(studio_id) REFERENCES studios(id),
+    released NUMERIC(4) NOT NULL
 
 );
 -- (released between 0 and 9999) limits integer method
