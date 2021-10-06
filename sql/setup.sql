@@ -1,5 +1,8 @@
 DROP TABLE IF EXISTS studios CASCADE;
-DROP TABLE IF EXISTS films;
+DROP TABLE IF EXISTS films CASCADE;
+DROP TABLE IF EXISTS actors CASCADE;
+DROP TABLE IF EXISTS reviewers CASCADE;
+DROP TABLE IF EXISTS reviews CASCADE;
     -- id;
     -- name;
     -- city;
@@ -26,4 +29,24 @@ CREATE TABLE films (
     released NUMERIC(4) NOT NULL
 
 );
--- (released between 0 and 9999) limits integer method
+
+CREATE TABLE actors (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name TEXT NOT NULL,
+    dob TEXT NOT NULL,
+    pob TEXT NOT NULL
+);
+
+CREATE TABLE reviewers (
+    name TEXT NOT NULL,
+    company TEXT NOT NULL
+);
+
+CREATE TABLE reviews (
+    rating INTEGER NOT NULL,
+    reviewer_id BIGINT,
+    FOREIGN KEY(reviewer_id) REFERENCES reviewers(id),
+    review TEXT NOT NULL,
+    film_id INTEGER,
+    FOREIGN KEY(film_id) REFERENCES films(id)
+)
