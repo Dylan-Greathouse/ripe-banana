@@ -7,9 +7,9 @@ async function saveActors() {
   const testActor = [
     {
       id: '1',
-      name: 'Cameron Mitchell',
-      dob: '11/04/1918',
-      pob: 'Dallastown, Pennsylvania, U.S.A.',
+      name: 'Leo Fong',
+      dob: '11/23/1928',
+      pob: 'Xinhui, Jiangmen, Guangdong, China',
     },
     {
       id: '2',
@@ -36,18 +36,18 @@ describe('banana routes', () => {
     return setup(pool);
   });
 
-  it('should save a new actor', () => {
+  it('should save a new actor', async () => {
+    await saveActors();
     return request(app)
       .post('/api/actors')
       .send({
-        id: '1',
         name: 'Cameron Mitchell',
         dob: '11/04/1918',
         pob: 'Dallastown, Pennsylvania, U.S.A.',
       })
       .then((res) => {
         expect(res.body).toEqual({
-          id: '1',
+          id: '4',
           name: 'Cameron Mitchell',
           dob: '11/04/1918',
           pob: 'Dallastown, Pennsylvania, U.S.A.',
