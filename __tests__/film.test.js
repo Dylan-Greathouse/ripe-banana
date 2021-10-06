@@ -61,6 +61,22 @@ describe('banana routes', () => {
   });
 
 
+  it('gets all films and their associated studio id, name', async() => {
+    await saveStudios();
+    await saveFilms();
+    return request(app)
+      .get('/api/films')
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '1',
+          title: expect.any(String),
+          released: expect.any(String),
+          studio: { id: '1', name: expect.any(String) }
+        });
+      });
+  });
+
+
   afterAll(() => {
     pool.end();
   });
