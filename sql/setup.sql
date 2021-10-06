@@ -38,11 +38,13 @@ CREATE TABLE actors (
 );
 
 CREATE TABLE reviewers (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
     company TEXT NOT NULL
 );
 
 CREATE TABLE reviews (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     rating INTEGER NOT NULL,
     reviewer_id BIGINT,
     FOREIGN KEY(reviewer_id) REFERENCES reviewers(id),

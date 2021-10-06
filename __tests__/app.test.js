@@ -29,13 +29,13 @@ async function saveFilms() {
     {
       title: 'Babe',
       studioId: 1,
-      released: 1991
+      released: 1991,
     },
     {
       title: 'Babe II Pig in the City',
       studioId: 1,
-      released: 1992
-    }
+      released: 1992,
+    },
   ];
   await Promise.all(
     testFilm.map(async (arr) => {
@@ -99,7 +99,11 @@ describe('banana routes', () => {
           city: 'Hollywood',
           state: 'California',
           country: 'United States of America',
-          films: [{ id: '1', title: expect.any(String) }, { id: '2', title: expect.any(String) }, { id: '3', title: expect.any(String) }],
+          films: [
+            { id: '1', title: expect.any(String) },
+            { id: '2', title: expect.any(String) },
+            { id: '3', title: expect.any(String) },
+          ],
         });
       });
   });
