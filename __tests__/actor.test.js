@@ -36,7 +36,7 @@ describe('banana routes', () => {
     return setup(pool);
   });
 
-  it('should save a new actor', async () => {
+  it.skip('should save a new actor', async () => {
     await saveActors();
     return request(app)
       .post('/api/actors')
