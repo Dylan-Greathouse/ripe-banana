@@ -86,7 +86,7 @@ describe('banana routes', () => {
       });
   });
 
-  it.only('should return a studio with all films and titles', async () => {
+  it('should return a studio with all films and titles', async () => {
     await saveStudios();
     await saveFilms();
     return request(app)
