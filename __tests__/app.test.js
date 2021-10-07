@@ -49,7 +49,7 @@ describe('banana routes', () => {
     return setup(pool);
   });
 
-  it.skip('should save a new studio', () => {
+  it('should save a new studio', () => {
     return request(app)
       .post('/api/studios')
       .send({
@@ -71,7 +71,7 @@ describe('banana routes', () => {
   });
 
   ///---GET STUDIO ID & NAME---///
-  it.skip('should return all studios names and ideeess', async () => {
+  it('should return all studios names and ideeess', async () => {
     await saveStudios();
     return request(app)
       .get('/api/studios')
@@ -86,7 +86,7 @@ describe('banana routes', () => {
       });
   });
 
-  it.skip('should return a studio with all films and titles', async () => {
+  it('should return a studio with all films and titles', async () => {
     await saveStudios();
     await saveFilms();
     return request(app)
