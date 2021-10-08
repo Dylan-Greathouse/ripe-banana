@@ -93,6 +93,11 @@ describe('banana routes', () => {
       });
   });
 
+  it('gets film by id with studio, cats, and reviews', async() => {
+    await saveStudios();
+    await saveFilms();
+  });
+
 
   afterAll(() => {
     pool.end();
