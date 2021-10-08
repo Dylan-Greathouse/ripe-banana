@@ -4,13 +4,20 @@ const request = require('supertest');
 const app = require('../lib/app.js');
 
 async function saveFilms() {
-  const testFilm = [
-    {
-      id: '1',
-      title: 'Lion King',
-      studio_id: 1,
-      released: 1994
-    },
+  const testFilm = [{
+    id: '1',
+    title: 'Lion King',
+    studioId: 1,
+    released: 1994
+  }, {
+    title: 'Babe',
+    studioId: 1,
+    released: 1991,
+  }, {
+    title: 'Babe II Pig in the City',
+    studioId: 1,
+    released: 1992,
+  }
   ];
   await Promise.all(
     testFilm.map(async (arr) => {
@@ -41,7 +48,7 @@ describe('banana routes', () => {
     return setup(pool);
   });
 
-  it.skip('should save a new film', async () => {
+  it('should save a new film', async () => {
     await saveStudios();
     return request(app)
       .post('/api/films')
@@ -67,12 +74,22 @@ describe('banana routes', () => {
     return request(app)
       .get('/api/films')
       .then((res) => {
-        expect(res.body).toEqual({
+        expect(res.body).toEqual([{
           id: '1',
           title: expect.any(String),
           released: expect.any(String),
           studio: { id: '1', name: expect.any(String) }
-        });
+        }, {
+          id: '2',
+          title: expect.any(String),
+          released: expect.any(String),
+          studio: { id: '1', name: expect.any(String) }
+        }, {
+          id: '3',
+          title: expect.any(String),
+          released: expect.any(String),
+          studio: { id: '1', name: expect.any(String) }
+        }]);
       });
   });
 
