@@ -5,7 +5,6 @@ const app = require('../lib/app.js');
 
 async function saveFilms() {
   const testFilm = [{
-    id: '1',
     title: 'Lion King',
     studioId: 1,
     released: 1994

@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool.js');
 const setup = require('../data/setup.js');
 const request = require('supertest');
 const app = require('../lib/app.js');
+// const { saveStudios, saveFilms } = require('../lib/utils/helper.js');
 
 async function saveStudios() {
   const testStudio = [

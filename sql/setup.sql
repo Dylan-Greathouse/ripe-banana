@@ -51,4 +51,4 @@ CREATE TABLE reviews (
     review TEXT NOT NULL,
     film_id INTEGER,
     FOREIGN KEY(film_id) REFERENCES films(id)
-)
+);
