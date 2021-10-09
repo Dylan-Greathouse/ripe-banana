@@ -17,10 +17,6 @@ CREATE TABLE studios (
     country TEXT NOT NULL
 );
 
---   title: <title of film RS>,
---   studio: <studio id RI>,
---   released: <4-digit year RN>
-
 CREATE TABLE films (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     title TEXT NOT NULL,
@@ -33,9 +29,12 @@ CREATE TABLE films (
 CREATE TABLE actors (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
+    film_id BIGINT,
+    FOREIGN KEY(film_id) REFERENCES films(id),
     dob TEXT NOT NULL,
     pob TEXT NOT NULL
 );
+
 
 CREATE TABLE reviewers (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -52,3 +51,6 @@ CREATE TABLE reviews (
     film_id INTEGER,
     FOREIGN KEY(film_id) REFERENCES films(id)
 );
+
+-- INSERT INTO actors (name, dob, pob)
+-- VALUES ('Izzie the Dog', '6/15/2015', 'East Jesus')
