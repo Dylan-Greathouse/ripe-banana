@@ -85,15 +85,15 @@ describe('banana routes', () => {
     await saveReviews();
 
     return request(app)
-      .get('/api/review')
+      .get('/api/reviews')
       .then((res) => {
         expect(res.body).toEqual([
-          { id: '',
-            rating: '',
-            review: '',
+          { id: expect.any(String),
+            rating: expect.any(String),
+            review: expect.any(String),
             film:{
-              id: '',
-              title: ''
+              id: expect.any(String),
+              title: expect.any(String)
             }
           }
         ]);

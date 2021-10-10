@@ -191,7 +191,7 @@ describe('banana routes', () => {
     return request(app)
       .get('/api/films/1')
       .then((res) => {
-        console.log('AT FILMS ID TEST', res.body);
+        // console.log('AT FILMS ID TEST', res.body);
         expect(res.body).toEqual(
           {
             title: expect.any(String),
