@@ -182,52 +182,52 @@ describe('banana routes', () => {
 
 
 
-  // it('gets film by id with studio, cats, and reviews', async() => {
-  //   await saveStudios();
-  //   await saveFilms();
-  //   await saveActors();
-  //   await saveReviewer();
-  //   await saveReviews();
-  //   return request(app)
-  //     .get('/api/films/1')
-  //     .then((res) => {
-  //       console.log('AT FILMS ID TEST', res.body);
-  //       expect(res.body).toEqual(
-  //         {
-  //           title: expect.any(String),
-  //           released: expect.any(String),
-  //           studio: expect.any(Object),
-  //           cast: expect.any(Array),
-  //           reviews: [
-  //             {
-  //               id: expect.any(String),
-  //               rating: expect.any(Number),
-  //               review: expect.any(String),
-  //               reviewer:{ 
-  //                 id: expect.any(String), 
-  //                 name: 'Latte' }
-  //             },
-  //             {
-  //               id: expect.any(String),
-  //               rating: expect.any(Number),
-  //               review: expect.any(String),
-  //               reviewer:{ 
-  //                 id: expect.any(String), 
-  //                 name: 'KiKi' }
-  //             },
-  //             {
-  //               id: expect.any(String),
-  //               rating: expect.any(Number),
-  //               review: expect.any(String),
-  //               reviewer:{ 
-  //                 id: expect.any(String), 
-  //                 name: 'The Professor' }
-  //             },
-  //           ]
-  //         }
-  // );
-  // });
-  // });
+  it('gets film by id with studio, cats, and reviews', async() => {
+    await saveStudios();
+    await saveFilms();
+    await saveActors();
+    await saveReviewer();
+    await saveReviews();
+    return request(app)
+      .get('/api/films/1')
+      .then((res) => {
+        console.log('AT FILMS ID TEST', res.body);
+        expect(res.body).toEqual(
+          {
+            title: expect.any(String),
+            released: expect.any(String),
+            studio: expect.any(Object),
+            cast: expect.any(Array),
+            reviews: [
+              {
+                id: expect.any(String),
+                rating: expect.any(Number),
+                review: expect.any(String),
+                reviewer:{ 
+                  id: expect.any(String), 
+                  name: expect.any(String) }
+              },
+              {
+                id: expect.any(String),
+                rating: expect.any(Number),
+                review: expect.any(String),
+                reviewer:{ 
+                  id: expect.any(String), 
+                  name: expect.any(String) }
+              },
+              {
+                id: expect.any(String),
+                rating: expect.any(Number),
+                review: expect.any(String),
+                reviewer:{ 
+                  id: expect.any(String), 
+                  name: expect.any(String) }
+              },
+            ]
+          }
+        );
+      });
+  });
 
 
   afterAll(() => {
