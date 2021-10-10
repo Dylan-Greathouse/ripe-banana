@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS studios CASCADE;
 DROP TABLE IF EXISTS films CASCADE;
 DROP TABLE IF EXISTS actors CASCADE;
-DROP TABLE IF EXISTS reviewers CASCADE;
 DROP TABLE IF EXISTS reviews CASCADE;
+DROP TABLE IF EXISTS reviewers CASCADE;
     -- id;
     -- name;
     -- city;
@@ -17,10 +17,6 @@ CREATE TABLE studios (
     country TEXT NOT NULL
 );
 
---   title: <title of film RS>,
---   studio: <studio id RI>,
---   released: <4-digit year RN>
-
 CREATE TABLE films (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     title TEXT NOT NULL,
@@ -33,22 +29,24 @@ CREATE TABLE films (
 CREATE TABLE actors (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
+    film_id INTEGER,
+    FOREIGN KEY(film_id) REFERENCES films(id)
     dob TEXT NOT NULL,
     pob TEXT NOT NULL
+);
+
+CREATE TABLE reviews (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    rating INTEGER NOT NULL,
+    reviewer_id INTEGER,
+    FOREIGN KEY(reviewer_id) REFERENCES reviewers(id)
+    review TEXT NOT NULL,
+    film_id INTEGER,
+    FOREIGN KEY(film_id) REFERENCES films(id)
 );
 
 CREATE TABLE reviewers (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
     company TEXT NOT NULL
-);
-
-CREATE TABLE reviews (
-    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    rating INTEGER NOT NULL,
-    reviewer_id BIGINT,
-    FOREIGN KEY(reviewer_id) REFERENCES reviewers(id),
-    review TEXT NOT NULL,
-    film_id INTEGER,
-    FOREIGN KEY(film_id) REFERENCES films(id)
 );
