@@ -3,8 +3,6 @@ const setup = require('../data/setup.js');
 const request = require('supertest');
 const app = require('../lib/app.js');
 
-// const { saveFilms, saveStudios, saveActors, saveReviews, saveReviewer } = require('../lib/utils/helper');
-
 async function saveFilms() {
   const testFilm = [
     {
@@ -182,19 +180,6 @@ describe('banana routes', () => {
             studio: { id: '1', name: expect.any(String) },
           },
         ]);
-      });
-  });
-
-  it('gets film by id with studio, cats, and reviews', async () => {
-    await saveStudios();
-    await saveFilms();
-    await saveActors();
-    await saveReviews();
-    await saveReviewer();
-    return request(app)
-      .get('/api/films/1')
-      .then((res) => {
-        expect(res.body).toEqual();
       });
   });
 

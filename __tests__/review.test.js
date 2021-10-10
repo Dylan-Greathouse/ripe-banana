@@ -7,15 +7,15 @@ async function saveReviewers() {
   const testReview = [
     {
       name: 'Latte',
-      company: 'Spoiled Oranges'
+      company: 'Spoiled Oranges',
     },
     {
       name: 'KiKi',
-      company: 'Anywhere but Google'
+      company: 'Anywhere but Google',
     },
     {
       name: 'The Proffesor',
-      company: 'Trader Joe\'s'
+      company: "Trader Joe's",
     },
   ];
   await Promise.all(
@@ -30,7 +30,8 @@ async function saveReviews() {
     {
       rating: '5',
       reviewer_id: '1',
-      review: 'Like Hamlet, but with Lions. It\'s how Shakespeare would have wanted it.',
+      review:
+        "Like Hamlet, but with Lions. It's how Shakespeare would have wanted it.",
       film_id: '1',
     },
     {
@@ -42,9 +43,9 @@ async function saveReviews() {
     {
       rating: '1',
       reviewer_id: '3',
-      review: 'Lions can\'t talk.',
+      review: "Lions can't talk.",
       film_id: '1',
-    }
+    },
   ];
   await Promise.all(
     testReview.map(async (arr) => {
@@ -59,7 +60,6 @@ describe('banana routes', () => {
   });
 
   it.skip('should save a new review', async () => {
-
     await saveReviewers();
     return request(app)
       .post('/api/reviews')
@@ -80,7 +80,7 @@ describe('banana routes', () => {
       });
   });
 
-  it('it gets all reviews orders by the 100 highest rated', async ()  => {
+  xit('it gets all reviews orders by the 100 highest rated', async () => {
     await saveReviewers();
     await saveReviews();
 
@@ -88,14 +88,15 @@ describe('banana routes', () => {
       .get('/api/reviews')
       .then((res) => {
         expect(res.body).toEqual([
-          { id: expect.any(String),
+          {
+            id: expect.any(String),
             rating: expect.any(String),
             review: expect.any(String),
-            film:{
+            film: {
               id: expect.any(String),
-              title: expect.any(String)
-            }
-          }
+              title: expect.any(String),
+            },
+          },
         ]);
       });
   });

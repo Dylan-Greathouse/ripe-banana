@@ -45,13 +45,23 @@ describe('banana routes', () => {
       });
   });
 
-  it('should get all reviewers', async () => {
+  it('should return all reviewers', async () => {
     const res = await request(app).get('/reviewers');
     expect(res.body).toEqual([
       {
-        id: expect.any(Number),
-        name: expect.any(String),
-        company: expect.any(String),
+        id: '1',
+        name: 'Latte',
+        company: 'Spoiled Oranges',
+      },
+      {
+        id: '2',
+        name: 'KiKi',
+        company: 'Anywhere but Google',
+      },
+      {
+        id: '3',
+        name: 'The Proffesor',
+        company: "Trader Joe's",
       },
     ]);
   });

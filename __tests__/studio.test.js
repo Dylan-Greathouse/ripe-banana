@@ -45,7 +45,7 @@ async function saveFilms() {
   );
 }
 
-describe.skip('banana routes', () => {
+describe('banana routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
