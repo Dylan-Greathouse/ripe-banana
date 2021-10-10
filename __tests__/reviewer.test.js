@@ -8,17 +8,17 @@ async function saveReviewer() {
     {
       id: '1',
       name: 'Latte',
-      company: 'Spoiled Oranges'
+      company: 'Spoiled Oranges',
     },
     {
       id: '2',
       name: 'KiKi',
-      company: 'Anywhere but Google'
+      company: 'Anywhere but Google',
     },
     {
       id: '3',
       name: 'The Proffesor',
-      company: 'Trader Joe\'s'
+      company: "Trader Joe's",
     },
   ];
   await Promise.all(
@@ -33,17 +33,27 @@ describe('banana routes', () => {
     return setup(pool);
   });
 
-
   it.skip('should save a new reviewer', async () => {
     return request(app)
       .post('/api/reviewers')
-      .send({ 
+      .send({
         name: 'Latte',
-        company: 'Spoiled Oranges'
+        company: 'Spoiled Oranges',
       })
       .then((res) => {
-        expect(res.body).toEqual({ });
+        expect(res.body).toEqual({});
       });
+  });
+
+  it('should get all reviewers', async () => {
+    const res = await request(app).get('/reviewers');
+    expect(res.body).toEqual([
+      {
+        id: expect.any(Number),
+        name: expect.any(String),
+        company: expect.any(String),
+      },
+    ]);
   });
 
   afterAll(() => {
