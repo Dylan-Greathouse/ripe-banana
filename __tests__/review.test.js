@@ -80,6 +80,26 @@ describe('banana routes', () => {
       });
   });
 
+  it('it gets all reviews orders by the 100 highest rated', async ()  => {
+    await saveReviewers();
+    await saveReviews();
+
+    return request(app)
+      .get('/api/review')
+      .then((res) => {
+        expect(res.body).toEqual([
+          { id: '',
+            rating: '',
+            review: '',
+            film:{
+              id: '',
+              title: ''
+            }
+          }
+        ]);
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
