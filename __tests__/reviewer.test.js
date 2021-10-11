@@ -169,6 +169,24 @@ describe('banana routes', () => {
       });
   });
 
+  it('should update a reviewer', async () => {
+    await saveReviewer();
+    return request(app)
+      .patch('/api/reviewers/1')
+      .send({
+        id: 1,
+        name: 'Latt\xE8',
+        company: 'Spoiled Oranges',
+      })
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: 1,
+          name: 'Latt\xE8',
+          company: 'Spoiled Oranges',
+        });
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
