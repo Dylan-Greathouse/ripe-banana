@@ -158,6 +158,17 @@ describe('banana routes', () => {
       });
   });
 
+  it('removes reviews', async () => {
+    await saveFilms();
+    await saveReviewers();
+    await saveReviews();
+
+    const res = await request(app)
+      .delete('/api/reviews/1');
+    expect (res.body).toEqual({});
+  
+  });
+
   afterAll(() => {
     pool.end();
   });
