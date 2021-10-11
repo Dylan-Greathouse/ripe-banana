@@ -159,6 +159,7 @@ describe('banana routes', () => {
   });
 
   it('removes reviews', async () => {
+    await saveStudios();
     await saveFilms();
     await saveReviewers();
     await saveReviews();
