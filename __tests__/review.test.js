@@ -2,6 +2,46 @@ const pool = require('../lib/utils/pool.js');
 const setup = require('../data/setup.js');
 const request = require('supertest');
 const app = require('../lib/app.js');
+async function saveStudios() {
+  const testStudio = [
+    {
+      name: 'Blum House',
+      city: 'Hollywood',
+      state: 'California',
+      country: 'United States of America',
+    },
+  ];
+  await Promise.all(
+    testStudio.map(async (arr) => {
+      await request(app).post('/api/studios').send(arr);
+    })
+  );
+}
+
+async function saveFilms() {
+  const testFilm = [
+    {
+      title: 'Lion King',
+      studioId: 1,
+      released: 1994,
+    },
+    {
+      title: 'Babe',
+      studioId: 1,
+      released: 1991,
+    },
+    {
+      title: 'Babe II Pig in the City',
+      studioId: 1,
+      released: 1992,
+    },
+  ];
+  await Promise.all(
+    testFilm.map(async (arr) => {
+      await request(app).post('/api/films').send(arr);
+    })
+  );
+}
 
 async function saveReviewers() {
   const testReview = [
@@ -20,7 +60,7 @@ async function saveReviewers() {
   ];
   await Promise.all(
     testReview.map(async (arr) => {
-      await request(app).post('/api/reviews').send(arr);
+      await request(app).post('/api/reviewers').send(arr);
     })
   );
 }
@@ -28,22 +68,22 @@ async function saveReviewers() {
 async function saveReviews() {
   const testReview = [
     {
-      rating: '5',
-      reviewer_id: '1',
+      rating: 5,
+      reviewerId: '1',
       review: 'Like Hamlet, but with Lions. It\'s how Shakespeare would have wanted it.',
-      film_id: '1',
+      filmId: '1',
     },
     {
-      rating: '5',
-      reviewer_id: '2',
+      rating: 5,
+      reviewerId: '2',
       review: 'A masterpiece!',
-      film_id: '1',
+      filmId: '1',
     },
     {
-      rating: '1',
-      reviewer_id: '3',
+      rating: 1,
+      reviewerId: '3',
       review: 'Lions can\'t talk.',
-      film_id: '1',
+      filmId: '1',
     }
   ];
   await Promise.all(
@@ -81,21 +121,39 @@ describe('banana routes', () => {
   });
 
   it('it gets all reviews orders by the 100 highest rated', async ()  => {
+    await saveStudios();
     await saveReviewers();
+    await saveFilms();
     await saveReviews();
 
     return request(app)
       .get('/api/reviews')
       .then((res) => {
-        expect(res.body).toEqual([
-          { id: expect.any(String),
-            rating: expect.any(String),
-            review: expect.any(String),
-            film:{
-              id: expect.any(String),
-              title: expect.any(String)
-            }
+        expect(res.body).toEqual([{ 
+          id: expect.any(String),
+          rating: 5,
+          review: expect.any(String),
+          film:{
+            id: expect.any(String),
+            title: expect.any(String)
           }
+        }, {  
+          id: expect.any(String),
+          rating: 5,
+          review: expect.any(String),
+          film:{
+            id: expect.any(String),
+            title: expect.any(String)
+          }
+        }, {  
+          id: expect.any(String),
+          rating: 1,
+          review: expect.any(String),
+          film:{
+            id: expect.any(String),
+            title: expect.any(String)
+          }
+        },
         ]);
       });
   });
