@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool.js');
 const setup = require('../data/setup.js');
 const request = require('supertest');
 const app = require('../lib/app.js');
+const Reviewer = require('../lib/model/Reviewer.js');
 
 async function saveReviewer() {
   const testReview = [
@@ -170,19 +171,22 @@ describe('banana routes', () => {
   });
 
   it('should update a reviewer', async () => {
-    await saveReviewer();
+    const latte = await Reviewer.insert({
+      name: 'Latte',
+      company: 'Spoiled Oranges',
+    });
     return request(app)
-      .patch('/api/reviewers/1')
+      .put(`/api/reviewers/${latte.id}`)
       .send({
         id: 1,
-        name: 'Latt\xE8',
-        company: 'Spoiled Oranges',
+        name: 'Latte',
+        company: 'Literally anything',
       })
       .then((res) => {
         expect(res.body).toEqual({
-          id: 1,
-          name: 'Latt\xE8',
-          company: 'Spoiled Oranges',
+          id: '1',
+          name: 'Latte',
+          company: 'Literally anything',
         });
       });
   });
