@@ -91,7 +91,7 @@ async function saveReviewers() {
   ];
   await Promise.all(
     testReview.map(async (arr) => {
-      await request(app).post('/api/reviews').send(arr);
+      await request(app).post('/api/reviewers').send(arr);
     })
   );
 }
@@ -102,7 +102,7 @@ describe('banana routes', () => {
   });
 
 
-  it.skip('should save a new reviewer', async () => {
+  it('should save a new reviewer', async () => {
     return request(app)
       .post('/api/reviewers')
       .send({ 
@@ -110,18 +110,23 @@ describe('banana routes', () => {
         company: 'Spoiled Oranges'
       })
       .then((res) => {
-        expect(res.body).toEqual({ });
+        expect(res.body).toEqual({
+          id: '1', 
+          name: 'Latte',
+          company: 'Spoiled Oranges'
+        });
       });
   });
 
   it('removes reviewers if null valum in column reviews', async () => {
+    await saveReviewers();
     await saveStudios();
     await saveFilms();
-    await saveReviewers();
     await saveReviews();
 
     const res = await request(app)
       .delete('/api/reviewers/1');
+    console.log('AT REMOVE REVIEWER TEST', res.body);
     expect (res.body).toEqual({});
   
   });

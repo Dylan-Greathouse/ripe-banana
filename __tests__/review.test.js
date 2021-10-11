@@ -98,7 +98,7 @@ describe('banana routes', () => {
     return setup(pool);
   });
 
-  it.skip('should save a new review', async () => {
+  it('should save a new review', async () => {
 
     await saveReviewers();
     return request(app)
