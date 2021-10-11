@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool.js');
 const setup = require('../data/setup.js');
 const request = require('supertest');
 const app = require('../lib/app.js');
+const Reviewer = require('../lib/model/Reviewer.js');
 
 async function saveReviewer() {
   const testReview = [
@@ -68,6 +69,19 @@ describe('banana routes', () => {
             company: expect.any(String),
           },
         ]);
+      });
+  });
+
+  it('should return a reviewer by id', async () => {
+    const latte = await Reviewer.insert({
+      name: 'Latte',
+      company: 'Spoiled Oranges',
+    });
+
+    return request(app)
+      .get(`/reviewers/${latte.id}`)
+      .then((res) => {
+        expect(res.body).toEqual(latte);
       });
   });
 
