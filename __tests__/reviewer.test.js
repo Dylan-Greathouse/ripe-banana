@@ -6,24 +6,21 @@ const app = require('../lib/app.js');
 async function saveReviewer() {
   const testReview = [
     {
-      id: '1',
       name: 'Latte',
       company: 'Spoiled Oranges',
     },
     {
-      id: '2',
       name: 'KiKi',
       company: 'Anywhere but Google',
     },
     {
-      id: '3',
       name: 'The Proffesor',
       company: "Trader Joe's",
     },
   ];
   await Promise.all(
     testReview.map(async (arr) => {
-      await request(app).post('/api/reviews').send(arr);
+      await request(app).post('/api/reviewers').send(arr);
     })
   );
 }
@@ -33,7 +30,7 @@ describe('banana routes', () => {
     return setup(pool);
   });
 
-  it.skip('should save a new reviewer', async () => {
+  it('should save a new reviewer', async () => {
     return request(app)
       .post('/api/reviewers')
       .send({
@@ -41,30 +38,34 @@ describe('banana routes', () => {
         company: 'Spoiled Oranges',
       })
       .then((res) => {
-        expect(res.body).toEqual({});
+        expect(res.body).toEqual({
+          id: '1',
+          name: 'Latte',
+          company: 'Spoiled Oranges',
+        });
       });
   });
 
   it('should return all reviewers', async () => {
     await saveReviewer();
     return request(app)
-      .get('/reviewers')
+      .get('/api/reviewers')
       .then((res) => {
         expect(res.body).toEqual([
           {
             id: '1',
-            name: 'Latte',
-            company: 'Spoiled Oranges',
+            name: expect.any(String),
+            company: expect.any(String),
           },
           {
             id: '2',
-            name: 'KiKi',
-            company: 'Anywhere but Google',
+            name: expect.any(String),
+            company: expect.any(String),
           },
           {
             id: '3',
-            name: 'The Proffesor',
-            company: "Trader Joe's",
+            name: expect.any(String),
+            company: expect.any(String),
           },
         ]);
       });
