@@ -2,7 +2,6 @@ const pool = require('../lib/utils/pool.js');
 const setup = require('../data/setup.js');
 const request = require('supertest');
 const app = require('../lib/app.js');
-const Reviewer = require('../lib/model/Reviewer.js');
 
 async function saveReviewer() {
   const testReview = [
@@ -22,6 +21,76 @@ async function saveReviewer() {
   await Promise.all(
     testReview.map(async (arr) => {
       await request(app).post('/api/reviewers').send(arr);
+    })
+  );
+}
+
+async function saveFilms() {
+  const testFilm = [
+    {
+      title: 'Lion King',
+      studioId: 1,
+      released: 1994,
+    },
+    {
+      title: 'Babe',
+      studioId: 1,
+      released: 1991,
+    },
+    {
+      title: 'Babe II Pig in the City',
+      studioId: 1,
+      released: 1992,
+    },
+  ];
+  await Promise.all(
+    testFilm.map(async (arr) => {
+      await request(app).post('/api/films').send(arr);
+    })
+  );
+}
+
+async function saveStudios() {
+  const testStudio = [
+    {
+      name: 'Blum House',
+      city: 'Hollywood',
+      state: 'California',
+      country: 'United States of America',
+    },
+  ];
+  await Promise.all(
+    testStudio.map(async (arr) => {
+      await request(app).post('/api/studios').send(arr);
+    })
+  );
+}
+
+async function saveReviews() {
+  const testReview = [
+    {
+      rating: '5',
+      reviewerId: '1',
+      review:
+        'Like Hamlet, but with Lions. It\'s how Shakespeare would have wanted it.',
+      filmId: '1',
+    },
+    {
+      rating: '5',
+      reviewerId: '2',
+      review: 'A masterpiece!',
+      filmId: '1',
+    },
+    {
+      rating: '1',
+      reviewerId: '3',
+      review: 'Lions can\'t talk.',
+      filmId: '1',
+    },
+  ];
+  await Promise.all(
+    testReview.map(async (arr) => {
+      await request(app).post('/api/reviews').send(arr);
     })
   );
 }
@@ -73,15 +142,30 @@ describe('banana routes', () => {
   });
 
   it('should return a reviewer by id', async () => {
-    const latte = await Reviewer.insert({
-      name: 'Latte',
-      company: 'Spoiled Oranges',
-    });
+    await saveStudios();
+    await saveFilms();
+    await saveReviewer();
+    await saveReviews();
 
     return request(app)
-      .get(`/reviewers/${latte.id}`)
+      .get('/api/reviewers/1')
       .then((res) => {
-        expect(res.body).toEqual(latte);
+        expect(res.body).toEqual({
+          id: expect.any(String),
+          name: expect.any(String),
+          company: expect.any(String),
+          reviews: [
+            {
+              id: expect.any(String),
+              rating: expect.any(Number),
+              review: expect.any(String),
+              film: {
+                id: expect.any(String),
+                title: expect.any(String),
+              },
+            },
+          ],
+        });
       });
   });
 
