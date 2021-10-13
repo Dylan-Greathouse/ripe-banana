@@ -49,21 +49,21 @@ async function saveActors() {
     {
       id: '1',
       name: 'Leo Fong',
-      filmId: 1,
+      filmId: '1',
       dob: '11/23/1928',
       pob: 'Xinhui, Jiangmen, Guangdong, China',
     },
     {
       id: '2',
       name: 'David Carradine',
-      filmId: 1,
+      filmId: '1',
       dob: '12/08/1936',
       pob: 'Los Angeles, California, U.S.A.',
     },
     {
       id: '3',
       name: 'Robert Zdar',
-      filmId: 1,
+      filmId: '1',
       dob: '06/03/1950',
       pob: 'Pensacola, Florida, U.S.A.',
     },
@@ -79,21 +79,21 @@ async function saveReviews() {
   const testReview = [
     {
       rating: '5',
-      reviewer_id: '1',
+      reviewerId: '1',
       review: 'Like Hamlet, but with Lions. It\'s how Shakespeare would have wanted it.',
-      film_id: '1',
+      filmId: '1',
     },
     {
       rating: '5',
-      reviewer_id: '2',
+      reviewerId: '2',
       review: 'A masterpiece!',
-      film_id: '1',
+      filmId: '1',
     },
     {
       rating: '1',
-      reviewer_id: '3',
+      reviewerId: '3',
       review: 'Lions can\'t talk.',
-      film_id: '1',
+      filmId: '1',
     }
   ];
   await Promise.all(
@@ -117,21 +117,18 @@ async function saveReviewer() {
     },
     {
       id: '3',
-      name: 'The Proffesor',
+      name: 'The Professor',
       company: 'Trader Joe\'s'
     },
   ];
   await Promise.all(
     testReview.map(async (arr) => {
-      await request(app).post('/api/reviews').send(arr);
+      await request(app).post('/api/reviewers').send(arr);
     })
   );
 }
 
-
-
-
-describe.skip('banana routes', () => {
+describe('banana routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
@@ -181,16 +178,51 @@ describe.skip('banana routes', () => {
       });
   });
 
+
   it('gets film by id with studio, cats, and reviews', async() => {
     await saveStudios();
     await saveFilms();
     await saveActors();
-    await saveReviews();
     await saveReviewer();
+    await saveReviews();
     return request(app)
       .get('/api/films/1')
       .then((res) => {
-        expect(res.body).toEqual();
+        // console.log('AT FILMS ID TEST', res.body);
+        expect(res.body).toEqual(
+          {
+            title: expect.any(String),
+            released: expect.any(String),
+            studio: expect.any(Object),
+            cast: expect.any(Array),
+            reviews: [
+              {
+                id: expect.any(String),
+                rating: expect.any(Number),
+                review: expect.any(String),
+                reviewer:{ 
+                  id: expect.any(String), 
+                  name: expect.any(String) }
+              },
+              {
+                id: expect.any(String),
+                rating: expect.any(Number),
+                review: expect.any(String),
+                reviewer:{ 
+                  id: expect.any(String), 
+                  name: expect.any(String) }
+              },
+              {
+                id: expect.any(String),
+                rating: expect.any(Number),
+                review: expect.any(String),
+                reviewer:{ 
+                  id: expect.any(String), 
+                  name: expect.any(String) }
+              },
+            ]
+          }
+        );
       });
   });
 
