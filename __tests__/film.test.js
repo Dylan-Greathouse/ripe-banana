@@ -81,8 +81,8 @@ async function saveReviews() {
     {
       rating: '5',
       reviewerId: '1',
-      review:
-        "Like Hamlet, but with Lions. It's how Shakespeare would have wanted it.",
+
+      review: 'Like Hamlet, but with Lions. It\'s how Shakespeare would have wanted it.',
       filmId: '1',
     },
     {
@@ -94,9 +94,9 @@ async function saveReviews() {
     {
       rating: '1',
       reviewerId: '3',
-      review: "Lions can't talk.",
+      review: 'Lions can\'t talk.',
       filmId: '1',
-    },
+    }
   ];
   await Promise.all(
     testReview.map(async (arr) => {
@@ -120,7 +120,7 @@ async function saveReviewer() {
     {
       id: '3',
       name: 'The Professor',
-      company: "Trader Joe's",
+      company: 'Trader Joe\'s'
     },
   ];
   await Promise.all(
@@ -183,7 +183,7 @@ describe('banana routes', () => {
       });
   });
 
-  it('gets film by id with studio, cats, and reviews', async () => {
+  it('gets film by id with studio, cats, and reviews', async() => {
     await saveStudios();
     await saveFilms();
     await saveActors();
@@ -193,41 +193,40 @@ describe('banana routes', () => {
       .get('/api/films/1')
       .then((res) => {
         // console.log('AT FILMS ID TEST', res.body);
-        expect(res.body).toEqual({
-          title: expect.any(String),
-          released: expect.any(String),
-          studio: expect.any(Object),
-          cast: expect.any(Array),
-          reviews: [
-            {
-              id: expect.any(String),
-              rating: expect.any(Number),
-              review: expect.any(String),
-              reviewer: {
+        expect(res.body).toEqual(
+          {
+            title: expect.any(String),
+            released: expect.any(String),
+            studio: expect.any(Object),
+            cast: expect.any(Array),
+            reviews: [
+              {
                 id: expect.any(String),
-                name: expect.any(String),
+                rating: expect.any(Number),
+                review: expect.any(String),
+                reviewer:{ 
+                  id: expect.any(String), 
+                  name: expect.any(String) }
               },
-            },
-            {
-              id: expect.any(String),
-              rating: expect.any(Number),
-              review: expect.any(String),
-              reviewer: {
+              {
                 id: expect.any(String),
-                name: expect.any(String),
+                rating: expect.any(Number),
+                review: expect.any(String),
+                reviewer:{ 
+                  id: expect.any(String), 
+                  name: expect.any(String) }
               },
-            },
-            {
-              id: expect.any(String),
-              rating: expect.any(Number),
-              review: expect.any(String),
-              reviewer: {
+              {
                 id: expect.any(String),
-                name: expect.any(String),
+                rating: expect.any(Number),
+                review: expect.any(String),
+                reviewer:{ 
+                  id: expect.any(String), 
+                  name: expect.any(String) }
               },
-            },
-          ],
-        });
+            ]
+          }
+        );
       });
   });
 
