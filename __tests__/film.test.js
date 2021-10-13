@@ -3,6 +3,8 @@ const setup = require('../data/setup.js');
 const request = require('supertest');
 const app = require('../lib/app.js');
 
+// const { saveFilms, saveStudios, saveActors, saveReviews, saveReviewer } = require('../lib/utils/helper');
+
 async function saveFilms() {
   const testFilm = [{
     title: 'Lion King',
@@ -42,8 +44,6 @@ async function saveStudios() {
   );
 }
 
-
-
 async function saveActors() {
   const testActor = [
     {
@@ -75,7 +75,6 @@ async function saveActors() {
   );
 }
 
-
 async function saveReviews() {
   const testReview = [
     {
@@ -103,7 +102,6 @@ async function saveReviews() {
     })
   );
 }
-
 
 async function saveReviewer() {
   const testReview = [
@@ -179,7 +177,6 @@ describe('banana routes', () => {
         }]);
       });
   });
-
 
 
   it('gets film by id with studio, cats, and reviews', async() => {
