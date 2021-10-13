@@ -48,7 +48,7 @@ CREATE TABLE reviews (
     reviewer_id BIGINT,
     FOREIGN KEY(reviewer_id) REFERENCES reviewers(id),
     review TEXT NOT NULL,
-    film_id INTEGER,
+    film_id BIGINT,
     FOREIGN KEY(film_id) REFERENCES films(id)
 );
 

@@ -99,21 +99,22 @@ describe('banana routes', () => {
   });
 
   it('should save a new review', async () => {
-
+    await saveStudios();
+    await saveFilms();
     await saveReviewers();
     return request(app)
       .post('/api/reviews')
       .send({
-        rating: '3',
+        rating: 3,
         reviewerId: '2',
         review: 'Meh.',
         filmId: '1',
       })
       .then((res) => {
         expect(res.body).toEqual({
-          id: '4',
-          rating: '2',
-          reviewerId: '4',
+          id: '1',
+          rating: 3,
+          reviewerId: '2',
           review: 'Meh.',
           filmId: '1',
         });
