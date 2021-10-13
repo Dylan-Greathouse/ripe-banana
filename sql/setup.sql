@@ -48,9 +48,9 @@ CREATE TABLE reviews (
     reviewer_id BIGINT,
     FOREIGN KEY(reviewer_id) REFERENCES reviewers(id),
     review TEXT NOT NULL,
-    film_id INTEGER,
+    film_id BIGINT,
     FOREIGN KEY(film_id) REFERENCES films(id)
 );
 
--- INSERT INTO actors (name, dob, pob)
--- VALUES ('Izzie the Dog', '6/15/2015', 'East Jesus')
+INSERT INTO reviewers (name, company)
+VALUES ('Izzie the Dog', 'Enron')

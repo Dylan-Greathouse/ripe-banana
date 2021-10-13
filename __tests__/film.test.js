@@ -82,7 +82,7 @@ async function saveReviews() {
       rating: '5',
       reviewerId: '1',
       review:
-        "Like Hamlet, but with Lions. It's how Shakespeare would have wanted it.",
+        'Like Hamlet, but with Lions. It\'s how Shakespeare would have wanted it.',
       filmId: '1',
     },
     {
@@ -94,7 +94,7 @@ async function saveReviews() {
     {
       rating: '1',
       reviewerId: '3',
-      review: "Lions can't talk.",
+      review: 'Lions can\'t talk.',
       filmId: '1',
     },
   ];
@@ -120,7 +120,7 @@ async function saveReviewer() {
     {
       id: '3',
       name: 'The Professor',
-      company: "Trader Joe's",
+      company: 'Trader Joe\'s',
     },
   ];
   await Promise.all(
