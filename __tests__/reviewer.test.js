@@ -3,30 +3,30 @@ const setup = require('../data/setup.js');
 const request = require('supertest');
 const app = require('../lib/app.js');
 
-async function saveReviewer() {
-  const testReview = [
-    {
-      id: '1',
-      name: 'Latte',
-      company: 'Spoiled Oranges'
-    },
-    {
-      id: '2',
-      name: 'KiKi',
-      company: 'Anywhere but Google'
-    },
-    {
-      id: '3',
-      name: 'The Proffesor',
-      company: 'Trader Joe\'s'
-    },
-  ];
-  await Promise.all(
-    testReview.map(async (arr) => {
-      await request(app).post('/api/reviews').send(arr);
-    })
-  );
-}
+// async function saveReviewer() {
+//   const testReview = [
+//     {
+//       id: '1',
+//       name: 'Latte',
+//       company: 'Spoiled Oranges'
+//     },
+//     {
+//       id: '2',
+//       name: 'KiKi',
+//       company: 'Anywhere but Google'
+//     },
+//     {
+//       id: '3',
+//       name: 'The Proffesor',
+//       company: 'Trader Joe\'s'
+//     },
+//   ];
+//   await Promise.all(
+//     testReview.map(async (arr) => {
+//       await request(app).post('/api/reviews').send(arr);
+//     })
+//   );
+// }
 
 describe('banana routes', () => {
   beforeEach(() => {

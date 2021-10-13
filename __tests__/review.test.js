@@ -53,7 +53,7 @@ async function saveReviews() {
   );
 }
 
-describe('banana routes', () => {
+describe.skip('banana routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
