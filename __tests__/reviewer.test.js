@@ -112,7 +112,7 @@ describe('banana routes', () => {
       })
       .then((res) => {
         expect(res.body).toEqual({
-          id: '1',
+          id: '2',
           name: 'Latte',
           company: 'Spoiled Oranges',
         });
@@ -140,6 +140,11 @@ describe('banana routes', () => {
             name: expect.any(String),
             company: expect.any(String),
           },
+          {
+            id: '4',
+            name: expect.any(String),
+            company: expect.any(String),
+          },
         ]);
       });
   });
@@ -151,7 +156,7 @@ describe('banana routes', () => {
     await saveReviews();
 
     return request(app)
-      .get('/api/reviewers/1')
+      .get('/api/reviewers/2')
       .then((res) => {
         expect(res.body).toEqual({
           id: expect.any(String),
@@ -187,7 +192,7 @@ describe('banana routes', () => {
         expect(res.body).toEqual({
           id: '2', 
           name: 'Latte',
-          company: 'Spoiled Oranges'
+          company: 'Literally anything'
         });
       });
   });
