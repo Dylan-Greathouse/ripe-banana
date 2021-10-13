@@ -52,5 +52,5 @@ CREATE TABLE reviews (
     FOREIGN KEY(film_id) REFERENCES films(id)
 );
 
--- INSERT INTO actors (name, dob, pob)
--- VALUES ('Izzie the Dog', '6/15/2015', 'East Jesus')
+INSERT INTO reviewers (name, company)
+VALUES ('Izzie the Dog', 'Enron')

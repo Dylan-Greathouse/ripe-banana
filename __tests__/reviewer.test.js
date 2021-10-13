@@ -48,19 +48,19 @@ async function saveReviews() {
   const testReview = [
     {
       rating: 5,
-      reviewerId: '1',
+      reviewerId: '2',
       review: 'Like Hamlet, but with Lions. It\'s how Shakespeare would have wanted it.',
       filmId: '1',
     },
     {
       rating: 5,
-      reviewerId: '2',
+      reviewerId: '3',
       review: 'A masterpiece!',
       filmId: '1',
     },
     {
       rating: 1,
-      reviewerId: '3',
+      reviewerId: '4',
       review: 'Lions can\'t talk.',
       filmId: '1',
     }
@@ -72,7 +72,7 @@ async function saveReviews() {
   );
 }
 async function saveReviewers() {
-  const testReview = [
+  const testReviewers = [
     {
       id: '1',
       name: 'Latte',
@@ -90,11 +90,13 @@ async function saveReviewers() {
     },
   ];
   await Promise.all(
-    testReview.map(async (arr) => {
+    testReviewers.map(async (arr) => {
       await request(app).post('/api/reviewers').send(arr);
     })
   );
 }
+
+
 
 describe('banana routes', () => {
   beforeEach(() => {
@@ -111,7 +113,7 @@ describe('banana routes', () => {
       })
       .then((res) => {
         expect(res.body).toEqual({
-          id: '1', 
+          id: '2', 
           name: 'Latte',
           company: 'Spoiled Oranges'
         });
