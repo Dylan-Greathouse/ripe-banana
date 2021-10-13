@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool.js');
 const setup = require('../data/setup.js');
 const request = require('supertest');
 const app = require('../lib/app.js');
+const Reviewer = require('../lib/model/Reviewer.js');
 
 async function saveStudios() {
   const testStudio = [
@@ -74,19 +75,16 @@ async function saveReviews() {
 async function saveReviewers() {
   const testReviewers = [
     {
-      id: '1',
       name: 'Latte',
-      company: 'Spoiled Oranges'
+      company: 'Spoiled Oranges',
     },
     {
-      id: '2',
       name: 'KiKi',
-      company: 'Anywhere but Google'
+      company: 'Anywhere but Google',
     },
     {
-      id: '3',
       name: 'The Proffesor',
-      company: 'Trader Joe\'s'
+      company: 'Trader Joe\'s',
     },
   ];
   await Promise.all(
@@ -98,29 +96,108 @@ async function saveReviewers() {
 
 
 
+
+
 describe('banana routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
 
-
   it('should save a new reviewer', async () => {
     return request(app)
       .post('/api/reviewers')
-      .send({ 
+      .send({
         name: 'Latte',
-        company: 'Spoiled Oranges'
+        company: 'Spoiled Oranges',
+      })
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '2',
+          name: 'Latte',
+          company: 'Spoiled Oranges',
+        });
+      });
+  });
+
+  it('should return all reviewers', async () => {
+    await saveReviewers();
+    return request(app)
+      .get('/api/reviewers')
+      .then((res) => {
+        expect(res.body).toEqual([
+          {
+            id: '1',
+            name: expect.any(String),
+            company: expect.any(String),
+          },
+          {
+            id: '2',
+            name: expect.any(String),
+            company: expect.any(String),
+          },
+          {
+            id: '3',
+            name: expect.any(String),
+            company: expect.any(String),
+          },
+          {
+            id: '4',
+            name: expect.any(String),
+            company: expect.any(String),
+          },
+        ]);
+      });
+  });
+
+  it('should return a reviewer by id', async () => {
+    await saveStudios();
+    await saveFilms();
+    await saveReviewers();
+    await saveReviews();
+
+    return request(app)
+      .get('/api/reviewers/2')
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: expect.any(String),
+          name: expect.any(String),
+          company: expect.any(String),
+          reviews: [
+            {
+              id: expect.any(String),
+              rating: expect.any(Number),
+              review: expect.any(String),
+              film: {
+                id: expect.any(String),
+                title: expect.any(String),
+              },
+            },
+          ],
+        });
+      });
+  });
+
+  it('should update a reviewer', async () => {
+    const latte = await Reviewer.insert({
+      name: 'Latte',
+      company: 'Spoiled Oranges',
+    });
+    return request(app)
+      .put(`/api/reviewers/${latte.id}`)
+      .send({
+        name: 'Latte',
+        company: 'Literally anything',
       })
       .then((res) => {
         expect(res.body).toEqual({
           id: '2', 
           name: 'Latte',
-          company: 'Spoiled Oranges'
+          company: 'Literally anything'
         });
       });
   });
 
-  it('removes reviewers if null valum in column reviews', async () => {
+  it('removes reviewers if null value in column reviews', async () => {
     await saveReviewers();
     await saveStudios();
     await saveFilms();
@@ -128,7 +205,6 @@ describe('banana routes', () => {
 
     const res = await request(app)
       .delete('/api/reviewers/1');
-    console.log('AT REMOVE REVIEWER TEST', res.body);
     expect (res.body).toEqual({});
   
   });

@@ -47,15 +47,15 @@ async function saveReviewers() {
   const testReview = [
     {
       name: 'Latte',
-      company: 'Spoiled Oranges'
+      company: 'Spoiled Oranges',
     },
     {
       name: 'KiKi',
-      company: 'Anywhere but Google'
+      company: 'Anywhere but Google',
     },
     {
       name: 'The Proffesor',
-      company: 'Trader Joe\'s'
+      company: 'Trader Joe\'s',
     },
   ];
   await Promise.all(
