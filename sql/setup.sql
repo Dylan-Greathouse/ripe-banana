@@ -35,6 +35,7 @@ CREATE TABLE actors (
     pob TEXT NOT NULL
 );
 
+
 CREATE TABLE reviewers (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT NOT NULL,
@@ -50,4 +51,8 @@ CREATE TABLE reviews (
     film_id BIGINT,
     FOREIGN KEY(film_id) REFERENCES films(id)
 );
+
+
+INSERT INTO reviewers (name, company)
+VALUES ('Izzie the Dog', 'Enron')
 
